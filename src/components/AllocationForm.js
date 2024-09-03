@@ -2,8 +2,8 @@ import React, { useContext, useState } from 'react';
 import { AppContext } from '../context/AppContext';
 
 const AllocationForm = (props) => {
-    const { dispatch,remaining  } = useContext(AppContext);
-
+    const { dispatch,remaining,expenses,currencySymbol } = useContext(AppContext);
+    
     const [name, setName] = useState('');
     const [cost, setCost] = useState('');
     const [action, setAction] = useState('');
@@ -15,6 +15,23 @@ const AllocationForm = (props) => {
                 setCost("");
                 return;
             }
+
+			if(isNaN(cost)) {
+				alert("Please enter a valid number");
+				setCost("");
+				return;
+			}
+
+			const totalExpenses = expenses.reduce((total, item) => {
+				return (total += item.cost);
+			}, 0);
+		
+			// It should not allow for the budget to be lower than the spending, as that is already allocated.
+			if(cost < totalExpenses) {
+				alert("You cannot reduce the budget value lower than the expending");
+				setCost("");
+				return;
+			}
 
         const expense = {
             name: name,
@@ -59,16 +76,17 @@ const AllocationForm = (props) => {
                 <option value="Reduce" name="Reduce">Reduce</option>
                   </select>
 
+					<label htmlFor="cost" style={{ marginLeft: '2rem' }}>{currencySymbol}</label>
                     <input
                         required='required'
                         type='number'
                         id='cost'
                         value={cost}
-                        style={{ marginLeft: '2rem' , size: 10}}
+                        style={{ marginLeft: '0.2rem' , size: 10}}
                         onChange={(event) => setCost(event.target.value)}>
                         </input>
 
-                    <button className="btn btn-primary" onClick={submitEvent} style={{ marginLeft: '2rem' }}>
+                    <button className="btn btn-primary" onClick={submitEvent} style={{ marginLeft: '0rem' }}>
                         Save
                     </button>
                 </div>

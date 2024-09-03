@@ -11,3 +11,31 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.currency-converter {
+  position: relative;
+  font-family: Arial, sans-serif;
+}
+
+.currency-select {
+  width: 100%;
+  background-color: #b7e3a7; /* Light green background */
+  border: 1px solid #88c57a;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 14px;
+  color: #333;
+  cursor: pointer;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 1;
+}
+
+.currency-select option {
+  padding: 5px 10px;
+  background-color: #b7e3a7; /* Light green background */
+  color: #333;
+}
+
+.currency-select option:hover {
+  background-color: #88c57a; /* Slightly darker green on hover */
+}
